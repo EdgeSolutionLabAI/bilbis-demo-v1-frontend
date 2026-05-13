@@ -1,5 +1,6 @@
 import BaconImage from './components/BaconImage';
 import RandomGift from './components/RandomGift';
+import RandomPicture from './components/RandomPicture';
 import { PresenceBadge } from '../features/presence/components/presence-badge';
 
 export default function Home() {
@@ -11,7 +12,10 @@ export default function Home() {
       <div className="absolute top-4 left-4">
         <RandomGift />
       </div>
-      <BaconImage />
+      <div className="flex flex-col items-center gap-8">
+        <BaconImage />
+        <RandomPicture />
+      </div>
     </div>
   );
 }
