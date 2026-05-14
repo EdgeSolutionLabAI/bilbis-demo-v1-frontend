@@ -18,6 +18,8 @@ export default defineConfig({
     ['list'],
     ['html', { open: 'never', outputFolder: 'playwright-report' }],
   ],
+  // Give assertions enough time for async backend-driven UI to resolve.
+  expect: { timeout: 10_000 },
   use: {
     baseURL: BASE_URL,
     // Capture traces, screenshots, and video on first retry for easy diagnosis.

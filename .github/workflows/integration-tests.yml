@@ -34,17 +34,21 @@ jobs:
         with:
           node-version: '22'
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install dependencies
-        run: npm install --ignore-scripts
+        run: pnpm install --frozen-lockfile
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium
+        run: pnpm exec playwright install --with-deps chromium
 
       - name: Check API manifest drift
-        run: npm run manifest:check
+        run: pnpm run manifest:check
 
       - name: Run integration tests
-        run: npm run test:integration
+        run: pnpm run test:integration
 
       - name: Upload test report
         if: failure()
