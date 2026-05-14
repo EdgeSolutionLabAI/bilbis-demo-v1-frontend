@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-14",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/api/v1/meta/version",
+      "source": "features/meta/hooks/use-app-version.ts"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/presence/active",
+      "source": "features/presence/hooks/use-active-presence.ts"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/presence/heartbeat",
+      "source": "features/presence/hooks/use-active-presence.ts"
+    }
+  ]
+}

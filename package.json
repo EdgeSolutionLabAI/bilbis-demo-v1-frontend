@@ -9,7 +9,9 @@
     "lint": "biome check",
     "format": "biome format --write",
     "test:integration": "playwright test",
-    "test:integration:ui": "playwright test --ui"
+    "test:integration:ui": "playwright test --ui",
+    "manifest:generate": "node scripts/generate-api-manifest.js",
+    "manifest:check": "node scripts/generate-api-manifest.js && git diff --exit-code api-manifest.json"
   },
   "dependencies": {
     "next": "16.2.6",

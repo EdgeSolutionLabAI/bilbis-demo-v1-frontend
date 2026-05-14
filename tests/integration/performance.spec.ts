@@ -3,7 +3,9 @@ import { apiClient, API_BASE_URL } from '../../lib/api-client';
 
 // Acceptance criterion: no endpoint cold-start > 3 s.
 // These tests fire against the real backend (API_BASE_URL).
-// They are not retried because a retry masks genuine latency issues.
+// Retries are disabled for this file — a retry on a slow request would hide
+// the real latency and let a cold-start budget violation pass unnoticed.
+test.describe.configure({ retries: 0 });
 
 const COLD_START_BUDGET_MS = 3_000;
 

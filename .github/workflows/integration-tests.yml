@@ -41,6 +41,9 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Check API manifest drift
+        run: npm run manifest:check
+
       - name: Run integration tests
         run: npm run test:integration
 
