@@ -5,6 +5,25 @@ import { apiClient, request, API_BASE_URL } from '../../lib/api-client';
 const FE_ORIGIN =
   process.env.FE_ORIGIN ?? 'https://bilbis-demo-v1-frontend.vercel.app';
 
+// ---------------------------------------------------------------------------
+// GET /health — pre-flight smoke before the full suite.
+// Expected: 200 { status: "ok" }. If BE hasn't added this yet (404), we log
+// and skip — the endpoint addition is tracked separately.
+// ---------------------------------------------------------------------------
+test.describe('GET /health', () => {
+  test('returns 200 { status: "ok" } or documents missing endpoint', async () => {
+    const { status, data } = await apiClient.health();
+    if (status === 404) {
+      console.info(
+        '[KAI-66] /health returned 404 — add GET /health → 200 { status: "ok" } to BE'
+      );
+      return;
+    }
+    expect(status).toBe(200);
+    expect(data).toMatchObject({ status: 'ok' });
+  });
+});
+
 test.describe('GET /api/v1/meta/version', () => {
   test('returns 200 with expected shape', async () => {
     const { status, data } = await apiClient.metaVersion();

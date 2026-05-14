@@ -21,16 +21,22 @@ function makeTests() {
     expect(consoleErrors).toHaveLength(0);
   });
 
-  test('presence badge renders with a count', async ({ page }) => {
+  test('page title content is visible', async ({ page }) => {
+    // "TRUST NO ONE" is a static element that is always present regardless of
+    // backend state — confirms the shell rendered.
     await page.goto('/');
-    // The presence badge shows active viewer count; wait for the first poll.
+    await expect(page.getByText('TRUST NO ONE')).toBeVisible();
+  });
+
+  test('presence badge does not crash the page', async ({ page }) => {
+    // PresenceBadge polls the backend; if it is absent from the current layout
+    // we still assert the page has no React error boundary crash.
+    await page.goto('/');
     const badge = page.locator('[data-testid="presence-badge"]');
-    // Tolerate missing data-testid — fall back to text pattern.
     const hasBadge = await badge.count();
     if (hasBadge) {
       await expect(badge).toBeVisible({ timeout: PRESENCE_BADGE_TIMEOUT });
     } else {
-      // Graceful fallback: assert the page didn't crash (no error boundary).
       await expect(page.locator('body')).not.toContainText('Something went wrong', {
         timeout: PRESENCE_BADGE_TIMEOUT,
       });
@@ -39,10 +45,14 @@ function makeTests() {
 
   test('version chip renders app version from backend', async ({ page }) => {
     await page.goto('/');
-    const chip = page.locator('[data-testid="version-chip"]');
-    const hasChip = await chip.count();
-    if (hasChip) {
-      await expect(chip).toBeVisible({ timeout: VERSION_CHIP_TIMEOUT });
+    // VersionChip lives in <footer> and renders text like "v1.2.3 · abc1234".
+    // If the backend is unreachable the chip is hidden — fall back to a crash check.
+    const versionText = page
+      .locator('footer')
+      .getByText(/v\d+\.\d+\.\d+\s*·\s*[0-9a-f]{7}/);
+    const hasVersion = await versionText.count();
+    if (hasVersion) {
+      await expect(versionText).toBeVisible({ timeout: VERSION_CHIP_TIMEOUT });
     } else {
       await expect(page.locator('body')).not.toContainText('Something went wrong', {
         timeout: VERSION_CHIP_TIMEOUT,

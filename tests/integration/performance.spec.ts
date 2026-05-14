@@ -41,16 +41,32 @@ test('POST /api/v1/presence/heartbeat responds within budget', async () => {
   expect(status).toBeLessThan(500);
 });
 
+test('GET /health responds within budget (if available)', async () => {
+  const { status, latencyMs } = await apiClient.health();
+  if (status === 404) {
+    console.info('[perf] GET /health — not found (404), skipping budget check');
+    return;
+  }
+  console.info(`[perf] GET /health — ${latencyMs}ms (status ${status})`);
+  expect(latencyMs).toBeLessThanOrEqual(COLD_START_BUDGET_MS);
+  expect(status).toBeLessThan(500);
+});
+
 test('records full latency summary across all endpoints', async () => {
-  const results = await Promise.all([
+  const [meta, active, heartbeat, health] = await Promise.all([
     apiClient.metaVersion().then((r) => ({ path: '/api/v1/meta/version', ...r })),
     apiClient.presenceActive().then((r) => ({ path: '/api/v1/presence/active', ...r })),
     apiClient
       .presenceHeartbeat({ visitorId: 'playwright-perf-summary' })
       .then((r) => ({ path: '/api/v1/presence/heartbeat', ...r })),
+    apiClient.health().then((r) => ({ path: '/health', ...r })),
   ]);
 
-  const summary = results.map(({ path, status, latencyMs }) => ({
+  // Health endpoint may not exist yet — include in summary but don't enforce budget.
+  const allResults = [meta, active, heartbeat];
+  if (health.status !== 404) allResults.push(health);
+
+  const summary = allResults.map(({ path, status, latencyMs }) => ({
     path,
     status,
     latencyMs,

@@ -59,14 +59,21 @@ export const apiClient = {
   presenceActive: (extraInit?: RequestInit) =>
     request<ActivePresence>('/api/v1/presence/active', extraInit),
 
-  presenceHeartbeat: (payload: HeartbeatPayload, extraInit?: RequestInit) =>
-    request('/api/v1/presence/heartbeat', {
+  presenceHeartbeat: (payload: HeartbeatPayload, extraInit?: RequestInit) => {
+    // Destructure so that spreading `restInit` never overwrites the
+    // Content-Type header or the serialised body set below.
+    const { headers: extraHeaders, ...restInit } = extraInit ?? {};
+    return request('/api/v1/presence/heartbeat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(extraInit?.headers as Record<string, string> | undefined),
+        ...(extraHeaders as Record<string, string> | undefined),
       },
       body: JSON.stringify(payload),
-      ...extraInit,
-    }),
+      ...restInit,
+    });
+  },
+
+  health: (extraInit?: RequestInit) =>
+    request<{ status: string }>('/health', extraInit),
 };
