@@ -21,8 +21,17 @@ export interface HeartbeatPayload {
   visitorId: string;
 }
 
+export interface ApiError {
+  /** HTTP status code of the failed response. */
+  status: number;
+  /** Human-readable message; derived from the response body when possible. */
+  message: string;
+}
+
 export interface ApiResponse<T> {
   data: T | null;
+  /** Populated for any 4xx / 5xx response; null on success. */
+  error: ApiError | null;
   status: number;
   latencyMs: number;
   headers: Record<string, string>;
@@ -49,7 +58,18 @@ export async function request<T>(
     // Non-JSON body — leave data as null
   }
 
-  return { data, status: res.status, latencyMs, headers };
+  const error: ApiError | null =
+    res.status >= 400
+      ? {
+          status: res.status,
+          // Use a message field from the parsed body if available.
+          message:
+            (data as Record<string, unknown> | null)?.message as string | undefined ??
+            `HTTP ${res.status}`,
+        }
+      : null;
+
+  return { data, error, status: res.status, latencyMs, headers };
 }
 
 export const apiClient = {

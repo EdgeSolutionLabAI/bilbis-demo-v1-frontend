@@ -113,3 +113,43 @@ test.describe('POST /api/v1/presence/heartbeat', () => {
     expect(res.status).toBeLessThan(500);
   });
 });
+
+// ---------------------------------------------------------------------------
+// OPTIONS preflight — browsers send this before cross-origin requests.
+// The backend must respond with an Access-Control-Allow-Origin that covers
+// the deployed FE origin, otherwise browsers will block the actual request.
+// ---------------------------------------------------------------------------
+test.describe('CORS OPTIONS preflight', () => {
+  const preflightHeaders = {
+    Origin: FE_ORIGIN,
+    'Access-Control-Request-Method': 'GET',
+    'Access-Control-Request-Headers': 'content-type',
+  };
+
+  for (const path of ['/api/v1/meta/version', '/api/v1/presence/active']) {
+    test(`OPTIONS ${path} returns CORS allow-origin`, async () => {
+      const res = await fetch(`${API_BASE_URL}${path}`, {
+        method: 'OPTIONS',
+        headers: preflightHeaders,
+      });
+      // Preflight may be answered by the router (200/204) or the actual handler (200).
+      expect([200, 204]).toContain(res.status);
+      const acao = res.headers.get('access-control-allow-origin');
+      expect(acao).toMatch(/bilbis-demo-v1-frontend\.vercel\.app|\*/);
+    });
+  }
+
+  test('OPTIONS /api/v1/presence/heartbeat returns CORS allow-origin', async () => {
+    const res = await fetch(`${API_BASE_URL}/api/v1/presence/heartbeat`, {
+      method: 'OPTIONS',
+      headers: {
+        Origin: FE_ORIGIN,
+        'Access-Control-Request-Method': 'POST',
+        'Access-Control-Request-Headers': 'content-type',
+      },
+    });
+    expect([200, 204]).toContain(res.status);
+    const acao = res.headers.get('access-control-allow-origin');
+    expect(acao).toMatch(/bilbis-demo-v1-frontend\.vercel\.app|\*/);
+  });
+});
