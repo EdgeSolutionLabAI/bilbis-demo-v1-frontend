@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000;
+  --foreground: #00ff00;
 }
 
 @theme inline {
@@ -12,23 +12,216 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  background: #000;
+  color: #00ff00;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Rainbow animated background */
+@keyframes rainbow-bg {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.mlg-bg {
+  background: linear-gradient(
+    270deg,
+    #ff0000, #ff7700, #ffff00, #00ff00,
+    #00ffff, #0000ff, #ff00ff, #ff0000
+  );
+  background-size: 1600% 1600%;
+  animation: rainbow-bg 3s ease infinite;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Neon glow text */
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #0ff,
+      0 0 40px #0ff,
+      0 0 80px #0ff;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.neon-text {
+  color: #fff;
+  animation: neon-flicker 2.5s infinite;
+  font-weight: 900;
 }
 
-html {
-  background: #00a651;
+.neon-green {
+  color: #0f0;
+  text-shadow:
+    0 0 5px #0f0,
+    0 0 10px #0f0,
+    0 0 20px #0f0,
+    0 0 40px #0f0;
 }
 
-body {
-  background: #00a651;
+.neon-red {
+  color: #f00;
+  text-shadow:
+    0 0 5px #f00,
+    0 0 10px #f00,
+    0 0 20px #f00;
+}
+
+/* Spinning elements */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes spin-fast {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin-slow  { animation: spin-slow  4s linear infinite; }
+.spin-fast  { animation: spin-fast  0.8s linear infinite; }
+
+/* Wobble/shake */
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  10%       { transform: translateX(-5px) rotate(-2deg); }
+  20%       { transform: translateX(5px) rotate(2deg); }
+  30%       { transform: translateX(-5px) rotate(0deg); }
+  40%       { transform: translateX(5px) rotate(1deg); }
+  50%       { transform: translateX(-5px) rotate(-1deg); }
+  60%       { transform: translateX(5px) rotate(0deg); }
+  70%       { transform: translateX(-5px) rotate(-2deg); }
+  80%       { transform: translateX(5px) rotate(2deg); }
+  90%       { transform: translateX(-5px) rotate(0deg); }
+}
+
+.shake { animation: shake 0.5s ease-in-out infinite; }
+
+/* Bounce */
+@keyframes bounce-mlg {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-20px) scale(1.1); }
+}
+
+.bounce { animation: bounce-mlg 0.6s ease-in-out infinite; }
+
+/* Glitch effect */
+@keyframes glitch {
+  0%   { clip-path: inset(0 0 95% 0); transform: translate(-3px, 0); }
+  10%  { clip-path: inset(30% 0 50% 0); transform: translate(3px, 0); }
+  20%  { clip-path: inset(60% 0 20% 0); transform: translate(-3px, 0); }
+  30%  { clip-path: inset(80% 0 5% 0); transform: translate(3px, 0); }
+  40%  { clip-path: inset(10% 0 70% 0); transform: translate(-3px, 0); }
+  50%  { clip-path: inset(50% 0 30% 0); transform: translate(3px, 0); }
+  60%  { clip-path: inset(20% 0 60% 0); transform: translate(-3px, 0); }
+  70%  { clip-path: inset(70% 0 10% 0); transform: translate(3px, 0); }
+  80%  { clip-path: inset(40% 0 40% 0); transform: translate(-3px, 0); }
+  90%  { clip-path: inset(5% 0 85% 0); transform: translate(3px, 0); }
+  100% { clip-path: inset(0 0 95% 0); transform: translate(-3px, 0); }
+}
+
+.glitch-wrapper {
+  position: relative;
+}
+
+.glitch-wrapper::before,
+.glitch-wrapper::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-wrapper::before {
+  color: #0ff;
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+.glitch-wrapper::after {
+  color: #f0f;
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse infinite;
+}
+
+/* Crosshair */
+.crosshair {
+  position: relative;
+}
+
+.crosshair::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: red;
+  transform: translateY(-50%);
+  box-shadow: 0 0 8px red;
+}
+
+.crosshair::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: red;
+  transform: translateX(-50%);
+  box-shadow: 0 0 8px red;
+}
+
+/* MLG title pulse */
+@keyframes mlg-pulse {
+  0%, 100% { transform: scale(1); filter: hue-rotate(0deg); }
+  50%       { transform: scale(1.05); filter: hue-rotate(180deg); }
+}
+
+.mlg-pulse { animation: mlg-pulse 0.8s ease-in-out infinite; }
+
+/* X marks */
+.x-mark {
+  color: #ff0000;
+  font-weight: 900;
+  text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  font-size: 2rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Scope overlay */
+.scope-ring {
+  border: 4px solid rgba(255, 0, 0, 0.8);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 4px rgba(0,0,0,0.5),
+    0 0 20px rgba(255, 0, 0, 0.5),
+    inset 0 0 20px rgba(255, 0, 0, 0.2);
+}
+
+/* Doge speech bubble wow text */
+@keyframes wow-float {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-8px) rotate(5deg); }
+}
+
+.wow-text {
+  font-style: italic;
+  font-weight: bold;
+  animation: wow-float 1.5s ease-in-out infinite;
+  text-shadow: 2px 2px 0 #000;
 }

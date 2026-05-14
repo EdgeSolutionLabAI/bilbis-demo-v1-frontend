@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 120" width="280" height="120">
+  <defs>
+    <linearGradient id="mlg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0066ff;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#00ccff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0033cc;stop-opacity:1" />
+    </linearGradient>
+    <filter id="mlg-glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Background rect -->
+  <rect x="0" y="0" width="280" height="120" rx="8" fill="#000" stroke="#0066ff" stroke-width="3"/>
+  <!-- MLG text -->
+  <text x="140" y="78" font-family="Arial Black, sans-serif" font-size="72" font-weight="900"
+        text-anchor="middle" fill="url(#mlg-grad)" filter="url(#mlg-glow)"
+        letter-spacing="-2">MLG</text>
+  <!-- Cannabis leaf icon (simplified) -->
+  <g transform="translate(240, 20) scale(0.5)">
+    <!-- Simplified leaf shape -->
+    <path d="M20,40 C20,40 0,30 5,10 C10,-5 20,5 20,5 C20,5 30,-5 35,10 C40,30 20,40 20,40Z"
+          fill="#00aa00" opacity="0.9"/>
+    <path d="M20,40 C20,40 -5,20 0,0 C5,-15 15,0 15,0"
+          fill="#00aa00" opacity="0.7" transform="rotate(-30 20 40)"/>
+    <path d="M20,40 C20,40 45,20 40,0 C35,-15 25,0 25,0"
+          fill="#00aa00" opacity="0.7" transform="rotate(30 20 40)"/>
+    <line x1="20" y1="40" x2="20" y2="70" stroke="#006600" stroke-width="2"/>
+  </g>
+  <!-- Stars decoration -->
+  <text x="15" y="30" font-size="18" fill="#ffcc00" opacity="0.8">★</text>
+  <text x="250" y="105" font-size="14" fill="#ffcc00" opacity="0.8">★</text>
+  <!-- Subtitle -->
+  <text x="140" y="105" font-family="Arial, sans-serif" font-size="13" font-weight="bold"
+        text-anchor="middle" fill="#00ccff" letter-spacing="4">MAJOR LEAGUE GAMING</text>
+</svg>
