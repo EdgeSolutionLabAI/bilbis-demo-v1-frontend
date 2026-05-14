@@ -20,9 +20,10 @@ export default defineConfig({
   ],
   use: {
     baseURL: BASE_URL,
-    // Capture traces on first retry so failures are easy to diagnose.
+    // Capture traces, screenshots, and video on first retry for easy diagnosis.
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    video: 'on-first-retry',
     // Give serverless functions time to cold-start.
     actionTimeout: 10_000,
     navigationTimeout: 15_000,
