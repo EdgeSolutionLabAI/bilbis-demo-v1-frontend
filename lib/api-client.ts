@@ -7,6 +7,11 @@
 export const API_BASE_URL =
   process.env.API_BASE_URL ?? 'https://bilbis-demo-v1-backend.vercel.app';
 
+// Sent as the Origin header on every request so the backend's CORS policy is
+// exercised in Node.js test contexts where browsers don't add Origin automatically.
+export const FE_ORIGIN =
+  process.env.FE_ORIGIN ?? 'https://bilbis-demo-v1-frontend.vercel.app';
+
 export interface AppVersion {
   version: string;
   commit: string;
@@ -43,7 +48,14 @@ export async function request<T>(
 ): Promise<ApiResponse<T>> {
   const url = `${API_BASE_URL}${path}`;
   const start = Date.now();
-  const res = await fetch(url, init);
+  const { headers: extraHeaders, ...restInit } = init;
+  const res = await fetch(url, {
+    headers: {
+      Origin: FE_ORIGIN,
+      ...(extraHeaders as Record<string, string> | undefined),
+    },
+    ...restInit,
+  });
   const latencyMs = Date.now() - start;
 
   const headers: Record<string, string> = {};

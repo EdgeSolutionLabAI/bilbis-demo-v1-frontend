@@ -60,6 +60,42 @@ function makeTests() {
     }
   });
 
+  test('all backend API requests succeed without CORS blocks', async ({ page }) => {
+    const apiBase =
+      process.env.API_BASE_URL ?? 'https://bilbis-demo-v1-backend.vercel.app';
+
+    // requestfailed fires when the browser's network stack aborts the request —
+    // this is exactly what happens when the browser enforces a CORS block.
+    const blockedRequests: string[] = [];
+    page.on('requestfailed', (req) => {
+      if (req.url().startsWith(apiBase)) {
+        blockedRequests.push(
+          `${req.method()} ${req.url()} — ${req.failure()?.errorText ?? 'unknown'}`
+        );
+      }
+    });
+
+    const corsConsoleErrors: string[] = [];
+    page.on('console', (msg) => {
+      const text = msg.text();
+      if (msg.type() === 'error' && /cors|cross.?origin|blocked/i.test(text)) {
+        corsConsoleErrors.push(text);
+      }
+    });
+
+    await page.goto('/');
+    await page.waitForLoadState('networkidle');
+
+    expect(
+      blockedRequests,
+      `Requests blocked by CORS or network: ${blockedRequests.join('\n')}`
+    ).toHaveLength(0);
+    expect(
+      corsConsoleErrors,
+      `CORS-related console errors: ${corsConsoleErrors.join('\n')}`
+    ).toHaveLength(0);
+  });
+
   test('4xx/5xx backend response renders error state without crashing', async ({
     page,
   }) => {

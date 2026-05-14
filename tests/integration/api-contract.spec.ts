@@ -1,9 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { apiClient, request, API_BASE_URL } from '../../lib/api-client';
-
-// CORS origin the backend must allow — the deployed FE origin.
-const FE_ORIGIN =
-  process.env.FE_ORIGIN ?? 'https://bilbis-demo-v1-frontend.vercel.app';
+import { apiClient, request, API_BASE_URL, FE_ORIGIN } from '../../lib/api-client';
 
 // ---------------------------------------------------------------------------
 // GET /health — pre-flight smoke before the full suite.
@@ -26,8 +22,9 @@ test.describe('GET /health', () => {
 
 test.describe('GET /api/v1/meta/version', () => {
   test('returns 200 with expected shape', async () => {
-    const { status, data } = await apiClient.metaVersion();
+    const { status, data, error } = await apiClient.metaVersion();
     expect(status).toBe(200);
+    expect(error).toBeNull();
     expect(data).toMatchObject({
       version: expect.any(String),
       commit: expect.any(String),
@@ -47,8 +44,9 @@ test.describe('GET /api/v1/meta/version', () => {
 
 test.describe('GET /api/v1/presence/active', () => {
   test('returns 200 with expected shape', async () => {
-    const { status, data } = await apiClient.presenceActive();
+    const { status, data, error } = await apiClient.presenceActive();
     expect(status).toBe(200);
+    expect(error).toBeNull();
     expect(data).toMatchObject({
       activeCount: expect.any(Number),
     });
@@ -65,11 +63,12 @@ test.describe('GET /api/v1/presence/active', () => {
 
 test.describe('POST /api/v1/presence/heartbeat', () => {
   test('returns 2xx with valid visitorId', async () => {
-    const { status } = await apiClient.presenceHeartbeat({
+    const { status, error } = await apiClient.presenceHeartbeat({
       visitorId: 'playwright-contract-test',
     });
     expect(status).toBeGreaterThanOrEqual(200);
     expect(status).toBeLessThan(300);
+    expect(error).toBeNull();
   });
 
   test('CORS header allows FE origin', async () => {
@@ -127,7 +126,7 @@ test.describe('CORS OPTIONS preflight', () => {
   };
 
   for (const path of ['/api/v1/meta/version', '/api/v1/presence/active']) {
-    test(`OPTIONS ${path} returns CORS allow-origin`, async () => {
+    test(`OPTIONS ${path} returns CORS allow-origin and allow-methods`, async () => {
       const res = await fetch(`${API_BASE_URL}${path}`, {
         method: 'OPTIONS',
         headers: preflightHeaders,
@@ -136,10 +135,12 @@ test.describe('CORS OPTIONS preflight', () => {
       expect([200, 204]).toContain(res.status);
       const acao = res.headers.get('access-control-allow-origin');
       expect(acao).toMatch(/bilbis-demo-v1-frontend\.vercel\.app|\*/);
+      const acam = res.headers.get('access-control-allow-methods');
+      expect(acam).toMatch(/GET/i);
     });
   }
 
-  test('OPTIONS /api/v1/presence/heartbeat returns CORS allow-origin', async () => {
+  test('OPTIONS /api/v1/presence/heartbeat returns CORS allow-origin and allow-methods', async () => {
     const res = await fetch(`${API_BASE_URL}/api/v1/presence/heartbeat`, {
       method: 'OPTIONS',
       headers: {
@@ -151,5 +152,7 @@ test.describe('CORS OPTIONS preflight', () => {
     expect([200, 204]).toContain(res.status);
     const acao = res.headers.get('access-control-allow-origin');
     expect(acao).toMatch(/bilbis-demo-v1-frontend\.vercel\.app|\*/);
+    const acam = res.headers.get('access-control-allow-methods');
+    expect(acam).toMatch(/POST/i);
   });
 });

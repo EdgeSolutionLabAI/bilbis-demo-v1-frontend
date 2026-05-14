@@ -48,7 +48,7 @@ jobs:
         run: pnpm run manifest:check
 
       - name: Run integration tests
-        run: pnpm run test:integration
+        run: pnpm run test:integration -- --reporter=line,github,html
 
       - name: Upload test report
         if: failure()
