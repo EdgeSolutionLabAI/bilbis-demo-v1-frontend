@@ -29,6 +29,59 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Integration tests (KAI-66)
+
+Playwright-based tests verify that the frontend correctly communicates with the
+backend across all critical flows. Tests cover API contracts, CORS headers,
+error states, and cold-start latency.
+
+### Run against a local backend
+
+```bash
+# 1. Start the backend (in the bilbis-demo-v1-backend repo)
+pnpm dev   # → listens on http://localhost:3000 (check console for actual port)
+
+# 2. Install Playwright browsers (first time only)
+npx playwright install --with-deps chromium
+
+# 3. Run all integration tests against localhost
+API_BASE_URL=http://localhost:3000 npm run test:integration
+
+# 4. Open the interactive UI runner
+API_BASE_URL=http://localhost:3000 npm run test:integration:ui
+```
+
+### Run against Vercel deployments
+
+```bash
+# Preview (default — matches CI on push)
+npm run test:integration
+
+# Production
+API_BASE_URL=https://bilbis-demo-v1-backend.vercel.app \
+BASE_URL=https://bilbis-demo-v1-frontend.vercel.app \
+npm run test:integration
+```
+
+### Environment variables
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `API_BASE_URL` | `https://bilbis-demo-v1-backend.vercel.app` | Backend base URL for API contract and performance tests |
+| `BASE_URL` | `https://bilbis-demo-v1-frontend.vercel.app` | Frontend base URL for happy-path page navigation |
+| `FE_ORIGIN` | `https://bilbis-demo-v1-frontend.vercel.app` | `Origin` header used in CORS assertions |
+
+### CI triggers
+
+| Event | Target |
+|---|---|
+| Push to `main` / `master` | Vercel preview (default `API_BASE_URL`) |
+| Nightly (`cron 03:00 UTC`) | Production |
+| `workflow_dispatch` | Configurable via inputs |
+
+Reports are uploaded as artifacts on failure. Find them under the **Actions** tab
+→ **Integration tests** → **playwright-report**.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
