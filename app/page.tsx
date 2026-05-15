@@ -19,7 +19,7 @@ function ClockWidget() {
 
     async function fetchAndAnchor(): Promise<void> {
       try {
-        const res = await fetch('/api/time');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/time`);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const data: { epochMs: number } = await res.json();
         anchorEpoch = data.epochMs;
