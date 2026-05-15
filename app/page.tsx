@@ -130,6 +130,7 @@ export default function Home() {
           textAlign: 'center',
           zIndex: 30,
         }}
+        className="slide-up"
       >
         <div
           className="glitch-wrapper mlg-pulse"
@@ -144,7 +145,7 @@ export default function Home() {
             textTransform: 'uppercase',
           }}
         >
-          TRUST NO ONE
+          🔥 TRUST NO ONE 🔥
         </div>
       </div>
 
@@ -165,7 +166,7 @@ export default function Home() {
         }}
         className="shake"
       >
-        RUSH B VETERAN
+        🎮 RUSH B VETERAN 🎮
       </div>
 
       {/* === Mountain Dew reference === */}
@@ -182,8 +183,9 @@ export default function Home() {
           textShadow: '3px 3px 0 #006600, 0 0 20px #ccff00',
           transform: 'rotate(5deg)',
         }}
+        className="float-up"
       >
-        🟩 MOUNTAIN DEW
+        🟩 MOUNTAIN DEW 🟩
       </div>
 
       {/* === COD reference === */}
@@ -200,6 +202,7 @@ export default function Home() {
           textShadow: '2px 2px 0 #000, 0 0 15px #ff6600',
           transform: 'rotate(-4deg)',
         }}
+        className="pulse-glow"
       >
         ◈ COD ◈
       </div>
@@ -218,9 +221,9 @@ export default function Home() {
           textShadow: '3px 3px 0 #000, 0 0 20px #ff0000',
           transform: 'rotate(8deg)',
         }}
-        className="neon-red"
+        className="neon-red heartbeat"
       >
-        FaZe▲UP
+        ⚡ FaZe▲UP ⚡
       </div>
 
       {/* === MLG Logo === */}
@@ -252,9 +255,9 @@ export default function Home() {
           textShadow: '2px 2px 0 #000, 0 0 20px #00ffff',
           transform: 'rotate(-8deg)',
         }}
-        className="neon-text"
+        className="neon-text swing"
       >
-        360° NO SCOPE
+        360° 🌀 NO SCOPE
       </div>
 
       {/* === Sunglasses emoji (bottom center) === */}
@@ -304,10 +307,84 @@ export default function Home() {
           textAlign: 'center',
           transform: 'rotate(3deg)',
         }}
+        className="swing"
       >
-        <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)' }}>🎤</div>
+        <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', animation: 'heartbeat 1.3s ease-in-out infinite' }}>🎤</div>
         <div style={{ color: '#ffff00', fontWeight: 900 }}>PRO GAMER</div>
       </div>
+
+      {/* === Floating stars === */}
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={`star-${i}`}
+          style={{
+            position: 'absolute',
+            top: `${10 + i * 15}%`,
+            left: `${5 + i * 12}%`,
+            fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+            zIndex: 15,
+            animation: `float-up ${2 + i * 0.3}s ease-in-out infinite`,
+            animationDelay: `${i * 0.2}s`,
+          }}
+        >
+          ⭐
+        </div>
+      ))}
+
+      {/* === Scattered fire emojis === */}
+      {[...Array(4)].map((_, i) => (
+        <div
+          key={`fire-${i}`}
+          style={{
+            position: 'absolute',
+            top: `${15 + i * 20}%`,
+            right: `${3 + i * 8}%`,
+            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+            zIndex: 12,
+            animation: `pulse-glow 1.5s ease-in-out infinite`,
+            animationDelay: `${i * 0.3}s`,
+            filter: 'drop-shadow(0 0 8px #ff4400)',
+          }}
+        >
+          🔥
+        </div>
+      ))}
+
+      {/* === Explosion symbols === */}
+      {[...Array(3)].map((_, i) => (
+        <div
+          key={`bomb-${i}`}
+          style={{
+            position: 'absolute',
+            bottom: `${30 + i * 15}%`,
+            left: `${12 + i * 20}%`,
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            zIndex: 11,
+            animation: `wobble 1s ease-in-out infinite`,
+            animationDelay: `${i * 0.2}s`,
+          }}
+        >
+          💥
+        </div>
+      ))}
+
+      {/* === Gaming/victory symbols === */}
+      {[...Array(2)].map((_, i) => (
+        <div
+          key={`victory-${i}`}
+          style={{
+            position: 'absolute',
+            top: `${60 + i * 15}%`,
+            right: `${15 + i * 10}%`,
+            fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+            zIndex: 13,
+            animation: `flip 2s ease-in-out infinite`,
+            animationDelay: `${i * 0.5}s`,
+          }}
+        >
+          🏆
+        </div>
+      ))}
 
       {/* === Neon border frame === */}
       <div
@@ -319,6 +396,7 @@ export default function Home() {
           pointerEvents: 'none',
           zIndex: 50,
         }}
+        className="pulse-glow"
       />
 
       {/* === Corner triangles === */}
