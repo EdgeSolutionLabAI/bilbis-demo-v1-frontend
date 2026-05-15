@@ -225,3 +225,84 @@ body {
   animation: wow-float 1.5s ease-in-out infinite;
   text-shadow: 2px 2px 0 #000;
 }
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in { animation: fadeIn 0.8s ease-in-out forwards; }
+
+/* Slide up animation */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slide-up { animation: slideUp 0.8s ease-out forwards; }
+
+/* Pulse animation */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.08); }
+}
+
+.pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* Swing animation */
+@keyframes swing {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}
+
+.swing { animation: swing 1.5s ease-in-out infinite; }
+
+/* Floating animation */
+@keyframes float-up {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+.float-up { animation: float-up 3s ease-in-out infinite; }
+
+/* Heartbeat animation */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  10%, 30% { transform: scale(0.9); }
+  20%, 40%, 60%, 80% { transform: scale(1.1); }
+  50%, 70% { transform: scale(1); }
+}
+
+.heartbeat { animation: heartbeat 1.3s ease-in-out infinite; }
+
+/* Rotation flip */
+@keyframes flip {
+  from { transform: rotateY(0deg); }
+  to { transform: rotateY(360deg); }
+}
+
+.flip { animation: flip 1s ease-in-out infinite; }
+
+/* Wobble animation */
+@keyframes wobble {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  15% { transform: translateX(-8px) rotate(-2deg); }
+  30% { transform: translateX(8px) rotate(2deg); }
+  45% { transform: translateX(-8px) rotate(-1deg); }
+  60% { transform: translateX(8px) rotate(1deg); }
+  75% { transform: translateX(-4px) rotate(-0.5deg); }
+}
+
+.wobble { animation: wobble 0.8s ease-in-out infinite; }
