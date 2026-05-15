@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ApiStatusDot } from "../features/meta/components/api-status-dot";
 import { VersionChip } from "../features/meta/components/version-chip";
 import "./globals.css";
 
@@ -30,7 +31,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <footer className="flex justify-end p-2">
+        <footer className="flex items-center justify-end gap-3 p-2">
+          <ApiStatusDot />
           <VersionChip />
         </footer>
       </body>
