@@ -1,4 +1,72 @@
-// No imports needed — purely declarative layout
+'use client';
+
+import { useEffect, useState } from 'react';
+
+function toUTCTimeString(epochMs: number): string {
+  const d = new Date(epochMs);
+  const hh = String(d.getUTCHours()).padStart(2, '0');
+  const mm = String(d.getUTCMinutes()).padStart(2, '0');
+  const ss = String(d.getUTCSeconds()).padStart(2, '0');
+  return `${hh}:${mm}:${ss}`;
+}
+
+function ClockWidget() {
+  const [display, setDisplay] = useState('--:--:--');
+
+  useEffect(() => {
+    let anchorEpoch: number | null = null;
+    let anchorWall: number | null = null;
+
+    async function fetchAndAnchor(): Promise<void> {
+      try {
+        const res = await fetch('/api/time');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data: { epochMs: number } = await res.json();
+        anchorEpoch = data.epochMs;
+        anchorWall = Date.now();
+        setDisplay(toUTCTimeString(data.epochMs));
+      } catch {
+        // keep current display: --:--:-- on initial failure, last known value on re-sync failure
+      }
+    }
+
+    fetchAndAnchor();
+
+    const tickId = setInterval(() => {
+      if (anchorEpoch !== null && anchorWall !== null) {
+        setDisplay(toUTCTimeString(anchorEpoch + (Date.now() - anchorWall)));
+      }
+    }, 1000);
+
+    const syncId = setInterval(fetchAndAnchor, 60_000);
+
+    return () => {
+      clearInterval(tickId);
+      clearInterval(syncId);
+    };
+  }, []);
+
+  return (
+    <div
+      aria-live="off"
+      style={{
+        position: 'absolute',
+        top: '1%',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 40,
+        fontFamily: 'monospace',
+        fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
+        fontWeight: 900,
+        color: '#00ff00',
+        textShadow: '2px 2px 0 #000, 0 0 15px #00ff00',
+        letterSpacing: '0.1em',
+      }}
+    >
+      {display}
+    </div>
+  );
+}
 
 const DOGE_POSITIONS = [
   { top: '5%',  left: '3%',  size: 90,  rotate: '-12deg', delay: '0s' },
@@ -28,6 +96,9 @@ const WOW_TEXTS = [
 export default function Home() {
   return (
     <div className="mlg-bg" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+
+      {/* === UTC clock — anchored from /api/time, ticks locally every second === */}
+      <ClockWidget />
 
       {/* === Doge faces scattered around === */}
       {DOGE_POSITIONS.map((pos, i) => (
