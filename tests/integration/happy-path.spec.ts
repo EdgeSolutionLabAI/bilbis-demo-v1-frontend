@@ -60,6 +60,27 @@ function makeTests() {
     }
   });
 
+  test('roll dice page fetches values on button click', async ({ page }) => {
+    await page.route('**/api/roll-dice', (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({ dice1: 2, dice2: 5 }),
+      })
+    );
+
+    await page.goto('/roll-dice');
+
+    await expect(page.getByRole('heading', { name: 'Roll the dice' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Roll' })).toBeVisible();
+    await expect(page.getByText('–').first()).toBeVisible();
+
+    await page.getByRole('button', { name: 'Roll' }).click();
+
+    await expect(page.getByText('2')).toBeVisible();
+    await expect(page.getByText('5')).toBeVisible();
+  });
+
   test('4xx/5xx backend response renders error state without crashing', async ({
     page,
   }) => {
