@@ -313,6 +313,21 @@ export default function Home() {
         <img src="/mlg-logo.svg" alt="MLG" width={240} height={103} />
       </div>
 
+      {/* === CS2 Logo === */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '58%',
+          left: '72%',
+          zIndex: 25,
+          transform: 'rotate(-6deg)',
+        }}
+        className="bounce"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/cs2-logo.svg" alt="CS2" width={110} height={110} />
+      </div>
+
       {/* === 360 no scope text (center-left) === */}
       <div
         style={{
