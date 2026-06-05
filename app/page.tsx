@@ -461,6 +461,21 @@ export default function Home() {
         </div>
       ))}
 
+      {/* === Train emoji sliding across the bottom === */}
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '22%',
+          left: 0,
+          zIndex: 27,
+          fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+          pointerEvents: 'none',
+        }}
+        className="train-ride"
+      >
+        🚂
+      </div>
+
       {/* === Neon border frame === */}
       <div
         style={{

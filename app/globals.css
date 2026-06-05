@@ -307,6 +307,14 @@ body {
 
 .wobble { animation: wobble 0.8s ease-in-out infinite; }
 
+/* Train slide animation */
+@keyframes train-ride {
+  0%   { transform: translateX(-150px); }
+  100% { transform: translateX(calc(100vw + 150px)); }
+}
+
+.train-ride { animation: train-ride 5s linear infinite; }
+
 /* ── HLTV-style matches page ── */
 
 :root {
