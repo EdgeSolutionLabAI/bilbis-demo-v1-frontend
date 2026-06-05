@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import EmojiToggle from './components/EmojiToggle';
+import MiniGame from './components/MiniGame';
 
 function toUTCTimeString(epochMs: number): string {
   const d = new Date(epochMs);
@@ -402,6 +403,9 @@ export default function Home() {
 
       {/* === Interactive emoji toggle (crying → smiling) === */}
       <EmojiToggle />
+
+      {/* === Click-the-Doge mini-game === */}
+      <MiniGame />
 
       {/* === Floating stars === */}
       {[...Array(6)].map((_, i) => (
