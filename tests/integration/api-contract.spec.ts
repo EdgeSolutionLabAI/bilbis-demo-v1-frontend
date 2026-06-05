@@ -1,6 +1,15 @@
 import { test, expect } from '@playwright/test';
 import { apiClient, request, API_BASE_URL } from '../../lib/api-client';
 
+interface Match {
+  id: string;
+  team1: string;
+  team2: string;
+  time: string;
+  event: string;
+  format: string;
+}
+
 // CORS origin the backend must allow — the deployed FE origin.
 const FE_ORIGIN =
   process.env.FE_ORIGIN ?? 'https://bilbis-demo-v1-frontend.vercel.app';
@@ -21,6 +30,32 @@ test.describe('GET /health', () => {
     }
     expect(status).toBe(200);
     expect(data).toMatchObject({ status: 'ok' });
+  });
+});
+
+test.describe('GET /matches/today', () => {
+  test('returns a non-cacheable array payload', async () => {
+    const { status, data, headers } = await request<Match[]>('/matches/today', {
+      cache: 'no-store',
+      headers: { Origin: FE_ORIGIN },
+    });
+
+    expect(status).toBe(200);
+    expect(Array.isArray(data)).toBe(true);
+
+    const cacheControl = headers['cache-control'] ?? '';
+    expect(cacheControl).toMatch(/no-store|max-age=60|s-maxage=60/);
+
+    for (const match of data ?? []) {
+      expect(match).toMatchObject({
+        id: expect.any(String),
+        team1: expect.any(String),
+        team2: expect.any(String),
+        time: expect.any(String),
+        event: expect.any(String),
+        format: expect.any(String),
+      });
+    }
   });
 });
 
