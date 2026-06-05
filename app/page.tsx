@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import EmojiToggle from './components/EmojiToggle';
 
 function toUTCTimeString(epochMs: number): string {
   const d = new Date(epochMs);
@@ -383,6 +384,9 @@ export default function Home() {
         <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', animation: 'heartbeat 1.3s ease-in-out infinite' }}>🎤</div>
         <div style={{ color: '#ffff00', fontWeight: 900 }}>PRO GAMER</div>
       </div>
+
+      {/* === Interactive emoji toggle (crying → smiling) === */}
+      <EmojiToggle />
 
       {/* === Floating stars === */}
       {[...Array(6)].map((_, i) => (
