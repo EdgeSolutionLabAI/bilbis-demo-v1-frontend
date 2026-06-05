@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- CS2 logo: orange star badge with CS2 text -->
+  <polygon points="100,10 120,70 185,70 135,108 155,170 100,133 45,170 65,108 15,70 80,70"
+    fill="#f4a400" stroke="#cc7000" stroke-width="3"/>
+  <text x="100" y="122" text-anchor="middle" dominant-baseline="middle"
+    font-family="Impact, Arial Black, sans-serif" font-size="38" font-weight="900"
+    fill="#1a1a1a" letter-spacing="2">CS2</text>
+</svg>
