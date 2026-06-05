@@ -11,7 +11,7 @@ export default function MatchesPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}/matches/today`)
+    fetch(`${BACKEND_URL}/matches/today`, { cache: "no-store" })
       .then((res) => res.json())
       .then((data: Match[]) => {
         setMatches(data);
