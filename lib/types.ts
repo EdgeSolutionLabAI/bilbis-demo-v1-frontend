@@ -5,4 +5,15 @@ export interface Match {
   time: string;
   event: string;
   format: string;
+  // Extended fields for HLTV-style display
+  status?: "live" | "upcoming" | "finished";
+  score1?: number;
+  score2?: number;
+  mapScore?: string;
+  tournament?: string;
+  region?: string;
+  tag?: string;
+  odds1?: number;
+  odds2?: number;
+  starred?: boolean;
 }
