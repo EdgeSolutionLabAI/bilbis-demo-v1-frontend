@@ -516,6 +516,19 @@ export default function Home() {
         className="pulse-glow"
       />
 
+      {/* === Finger emoji === */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '15%',
+          left: '45%',
+          zIndex: 25,
+          fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+        }}
+      >
+        ☝️
+      </div>
+
       {/* === Corner triangles === */}
       <div style={{ position: 'absolute', top: 10, left: 10, zIndex: 35, color: '#ff00ff', fontSize: '1.5rem' }}>▲</div>
       <div style={{ position: 'absolute', top: 10, right: 10, zIndex: 35, color: '#ff00ff', fontSize: '1.5rem' }}>▲</div>
