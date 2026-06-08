@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { RaceTrackCanvas } from "../components/RaceTrackCanvas";
 import { makePrng } from "../../lib/track-generator";
@@ -11,7 +11,7 @@ function nextSeed(prev: number): number {
   return Math.floor(rand() * 0x100000000);
 }
 
-export default function RaceTrackPage() {
+function RaceTrackContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -99,5 +99,13 @@ export default function RaceTrackPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function RaceTrackPage() {
+  return (
+    <Suspense>
+      <RaceTrackContent />
+    </Suspense>
   );
 }
