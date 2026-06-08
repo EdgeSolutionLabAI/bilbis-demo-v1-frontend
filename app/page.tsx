@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import EmojiToggle from './components/EmojiToggle';
 import MiniGame from './components/MiniGame';
+import RandomImageGenerator from './components/RandomImageGenerator';
 import Solitaire from './components/Solitaire';
 
 function toUTCTimeString(epochMs: number): string {
@@ -401,6 +402,9 @@ export default function Home() {
         <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', animation: 'heartbeat 1.3s ease-in-out infinite' }}>🎤</div>
         <div style={{ color: '#ffff00', fontWeight: 900 }}>PRO GAMER</div>
       </div>
+
+      {/* === Random image generator (bottom-left) === */}
+      <RandomImageGenerator />
 
       {/* === Interactive emoji toggle (crying → smiling) === */}
       <EmojiToggle />
