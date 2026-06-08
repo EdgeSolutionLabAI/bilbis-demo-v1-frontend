@@ -350,13 +350,12 @@ export default function Home() {
         360° 🌀 NO SCOPE
       </div>
 
-      {/* === Sunglasses emoji (bottom center) === */}
+      {/* === Sunglasses emoji (bottom left-of-center, offset to avoid MLG logo) === */}
       <div
         style={{
           position: 'absolute',
           bottom: '14%',
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: '28%',
           zIndex: 28,
           fontSize: 'clamp(3rem, 8vw, 6rem)',
           filter: 'grayscale(100%) brightness(0.4)',
