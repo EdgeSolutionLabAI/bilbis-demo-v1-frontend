@@ -4,6 +4,8 @@
 //   - CI:         API_BASE_URL=https://bilbis-demo-v1-backend.vercel.app  (preview/prod)
 // Matches the endpoints the frontend hooks call via NEXT_PUBLIC_BACKEND_URL.
 
+import type { FeedbackRequest, FeedbackResponse } from './types';
+
 export const API_BASE_URL =
   process.env.API_BASE_URL ?? 'https://bilbis-demo-v1-backend.vercel.app';
 
@@ -96,4 +98,17 @@ export const apiClient = {
 
   health: (extraInit?: RequestInit) =>
     request<{ status: string }>('/health', extraInit),
+
+  submitFeedback: (payload: FeedbackRequest, extraInit?: RequestInit) => {
+    const { headers: extraHeaders, ...restInit } = extraInit ?? {};
+    return request<FeedbackResponse>('/api/feedback', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(extraHeaders as Record<string, string> | undefined),
+      },
+      body: JSON.stringify(payload),
+      ...restInit,
+    });
+  },
 };
