@@ -178,6 +178,23 @@ export default function Home() {
         className="crosshair scope-ring"
       />
 
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 220,
+          height: 220,
+          zIndex: 19,
+          pointerEvents: 'none',
+          borderRadius: '50%',
+          background: 'conic-gradient(from 0deg, rgba(255,0,0,0) 0deg, rgba(255,0,0,0.75) 32deg, rgba(255,0,0,0) 60deg)',
+        }}
+        className="radar-sweep"
+      />
+
       {/* === Scope inner dot === */}
       <div
         style={{
@@ -361,6 +378,7 @@ export default function Home() {
           fontSize: 'clamp(3rem, 8vw, 6rem)',
           filter: 'grayscale(100%) brightness(0.4)',
         }}
+        className="orbit-drift"
       >
         😎
       </div>
@@ -501,6 +519,26 @@ export default function Home() {
         className="train-ride"
       >
         🚂
+      </div>
+
+      <div
+        style={{
+          position: 'absolute',
+          top: '88%',
+          left: 0,
+          zIndex: 26,
+          fontFamily: 'Impact, Arial Black, sans-serif',
+          fontSize: 'clamp(0.9rem, 2vw, 1.3rem)',
+          fontWeight: 900,
+          letterSpacing: '0.14em',
+          color: '#00ffff',
+          textShadow: '2px 2px 0 #000, 0 0 16px #00ffff',
+          whiteSpace: 'nowrap',
+          pointerEvents: 'none',
+        }}
+        className="marquee-drift"
+      >
+        ★★★ MLG HYPE TRAIN ACTIVATED ★★★
       </div>
 
       {/* === Neon border frame === */}
