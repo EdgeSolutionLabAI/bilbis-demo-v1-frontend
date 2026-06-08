@@ -219,7 +219,7 @@ export default function Home() {
             textTransform: 'uppercase',
           }}
         >
-          🔥 TRUST NO ONE 🔥
+          😊 🔥 TRUST NO ONE 🔥 😊
         </div>
       </div>
 
