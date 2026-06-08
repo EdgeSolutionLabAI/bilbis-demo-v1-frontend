@@ -277,6 +277,34 @@ body {
 
 .float-up { animation: float-up 3s ease-in-out infinite; }
 
+/* Orbit animation */
+@keyframes orbit-drift {
+  0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+.orbit-drift { animation: orbit-drift 3s linear infinite; }
+
+/* Radar sweep animation */
+@keyframes radar-sweep {
+  0% { transform: translate(-50%, -50%) rotate(0deg); opacity: 0.35; }
+  50% { opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) rotate(360deg); opacity: 0.35; }
+}
+
+.radar-sweep {
+  animation: radar-sweep 2.4s linear infinite;
+  transform-origin: center;
+}
+
+/* Marquee drift animation */
+@keyframes marquee-drift {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+.marquee-drift { animation: marquee-drift 9s linear infinite; }
+
 /* Heartbeat animation */
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
