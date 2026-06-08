@@ -115,6 +115,41 @@ test.describe('POST /api/v1/presence/heartbeat', () => {
 });
 
 // ---------------------------------------------------------------------------
+// POST /api/feedback
+// ---------------------------------------------------------------------------
+test.describe('POST /api/feedback', () => {
+  test('returns 201 with id and createdAt for valid message', async () => {
+    const { status, data } = await apiClient.submitFeedback({
+      message: 'Playwright contract test feedback',
+    });
+    expect(status).toBe(201);
+    expect(data).toMatchObject({
+      id: expect.any(String),
+      createdAt: expect.any(String),
+    });
+  });
+
+  test('returns 400 for empty message', async () => {
+    const { status } = await apiClient.submitFeedback({ message: '' });
+    expect(status).toBe(400);
+  });
+
+  test('returns 400 for message over 1000 chars', async () => {
+    const { status } = await apiClient.submitFeedback({ message: 'a'.repeat(1001) });
+    expect(status).toBe(400);
+  });
+
+  test('accepts optional email field', async () => {
+    const { status, data } = await apiClient.submitFeedback({
+      message: 'Feedback with email',
+      email: 'test@example.com',
+    });
+    expect(status).toBe(201);
+    expect(data).toMatchObject({ id: expect.any(String) });
+  });
+});
+
+// ---------------------------------------------------------------------------
 // OPTIONS preflight — browsers send this before cross-origin requests.
 // The backend must respond with an Access-Control-Allow-Origin that covers
 // the deployed FE origin, otherwise browsers will block the actual request.

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ApiStatusDot } from "../features/meta/components/api-status-dot";
 import { VersionChip } from "../features/meta/components/version-chip";
+import { FeedbackButton } from "./components/FeedbackButton";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         {children}
         <footer className="flex items-center justify-end gap-3 p-2">
+          <FeedbackButton />
           <ApiStatusDot />
           <VersionChip />
         </footer>

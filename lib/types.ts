@@ -1,3 +1,13 @@
+export interface FeedbackRequest {
+  message: string;
+  email?: string;
+}
+
+export interface FeedbackResponse {
+  id: string;
+  createdAt: string;
+}
+
 export interface Match {
   id: string;
   team1: string;
