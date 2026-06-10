@@ -5,6 +5,7 @@ import EmojiToggle from './components/EmojiToggle';
 import MiniGame from './components/MiniGame';
 import RandomImageGenerator from './components/RandomImageGenerator';
 import Solitaire from './components/Solitaire';
+import SniperAnimation from './components/SniperAnimation';
 
 function toUTCTimeString(epochMs: number): string {
   const d = new Date(epochMs);
@@ -420,6 +421,9 @@ export default function Home() {
         <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', animation: 'heartbeat 1.3s ease-in-out infinite' }}>🎤</div>
         <div style={{ color: '#ffff00', fontWeight: 900 }}>PRO GAMER</div>
       </div>
+
+      {/* === CS2 sniper with scope-zoom and shoot cycle === */}
+      <SniperAnimation />
 
       {/* === Random image generator (bottom-left) === */}
       <RandomImageGenerator />
