@@ -577,6 +577,26 @@ export default function Home() {
       <div style={{ position: 'absolute', bottom: 10, left: 10, zIndex: 35, color: '#ff00ff', fontSize: '1.5rem' }}>▼</div>
       <div style={{ position: 'absolute', bottom: 10, right: 10, zIndex: 35, color: '#ff00ff', fontSize: '1.5rem' }}>▼</div>
 
+      {/* === Max is top 1 po adekvatnosti === */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '15%',
+          transform: 'translateY(-50%)',
+          zIndex: 24,
+          fontFamily: 'Impact, Arial Black, sans-serif',
+          fontSize: 'clamp(1.2rem, 3vw, 2rem)',
+          fontWeight: 900,
+          color: '#ffff00',
+          textShadow: '3px 3px 0 #000, 0 0 20px #ffff00',
+          letterSpacing: '0.1em',
+          rotate: '-5deg',
+        }}
+      >
+        Max is top 1 po adekvatnosti
+      </div>
+
     </div>
   );
 }
