@@ -6,6 +6,7 @@ import MiniGame from './components/MiniGame';
 import RandomImageGenerator from './components/RandomImageGenerator';
 import Solitaire from './components/Solitaire';
 import SniperAnimation from './components/SniperAnimation';
+import FunnyIcon from './components/FunnyIcon';
 
 function toUTCTimeString(epochMs: number): string {
   const d = new Date(epochMs);
@@ -421,6 +422,9 @@ export default function Home() {
         <div style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', animation: 'heartbeat 1.3s ease-in-out infinite' }}>🎤</div>
         <div style={{ color: '#ffff00', fontWeight: 900 }}>PRO GAMER</div>
       </div>
+
+      {/* === Funny icon (animated spin-bounce) === */}
+      <FunnyIcon />
 
       {/* === CS2 sniper with scope-zoom and shoot cycle === */}
       <SniperAnimation />
