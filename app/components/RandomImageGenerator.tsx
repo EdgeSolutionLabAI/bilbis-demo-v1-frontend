@@ -15,8 +15,8 @@ export default function RandomImageGenerator() {
     <div
       style={{
         position: 'absolute',
-        bottom: '10%',
-        left: '3%',
+        top: '20%',
+        right: '2%',
         zIndex: 30,
         display: 'flex',
         flexDirection: 'column',

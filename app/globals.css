@@ -354,6 +354,14 @@ body {
 
 .train-ride { animation: train-ride 5s linear infinite; }
 
+/* ── Interactive widget layout ──
+   Solitaire is centered (left 50% translateX(-50%), min-width 420px).
+   MiniGame sits to its left  (left 2%)  and RandomImageGenerator to its right (right 2%).
+   At the design width of 1024px+ their edges are: MiniGame right ~300px, Solitaire left ~302px,
+   Solitaire right ~722px, RandomImageGenerator left ~844px — no overlap.
+   EmojiToggle remains at the bottom (bottom 10%, right 20%) in its own zone below the widgets.
+*/
+
 /* ── HLTV-style matches page ── */
 
 :root {

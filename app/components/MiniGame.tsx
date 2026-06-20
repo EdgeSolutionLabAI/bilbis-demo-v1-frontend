@@ -68,8 +68,8 @@ export default function MiniGame() {
     <div
       style={{
         position: 'absolute',
-        bottom: '12%',
-        left: '3%',
+        top: '20%',
+        left: '2%',
         zIndex: 45,
         background: 'rgba(0,0,0,0.82)',
         border: '3px solid #ff00ff',
