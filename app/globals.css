@@ -335,6 +335,17 @@ body {
 
 .wobble { animation: wobble 0.8s ease-in-out infinite; }
 
+/* Funny icon spin-bounce */
+@keyframes funny-icon-spin {
+  0%   { transform: rotate(0deg) scale(1); }
+  25%  { transform: rotate(90deg) scale(1.2); }
+  50%  { transform: rotate(180deg) scale(1); }
+  75%  { transform: rotate(270deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.funny-icon-spin { animation: funny-icon-spin 1.8s linear infinite; }
+
 /* Train slide animation */
 @keyframes train-ride {
   0%   { transform: translateX(-150px); }
