@@ -562,6 +562,20 @@ export default function Home() {
         className="pulse-glow"
       />
 
+      {/* === Alfred Pennyworth portrait === */}
+      <div
+        className="alfred-animate"
+        style={{
+          position: 'absolute',
+          bottom: '38%',
+          left: '4%',
+          zIndex: 26,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/alfred_pennyworth.svg" alt="Alfred Pennyworth" width={140} height={140} />
+      </div>
+
       {/* === Finger emoji === */}
       <div
         style={{
