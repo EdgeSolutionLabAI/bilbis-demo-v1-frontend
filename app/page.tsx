@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import EmojiToggle from './components/EmojiToggle';
 import MiniGame from './components/MiniGame';
 import RandomImageGenerator from './components/RandomImageGenerator';
-import Solitaire from './components/Solitaire';
 import SniperAnimation from './components/SniperAnimation';
 import FunnyIcon from './components/FunnyIcon';
 
@@ -438,8 +437,19 @@ export default function Home() {
       {/* === Click-the-Doge mini-game === */}
       <MiniGame />
 
-      {/* === Solitaire card game === */}
-      <Solitaire />
+      {/* === Argo logo === */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          right: '10%',
+          transform: 'translateY(-50%)',
+          zIndex: 24,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/argo-logo.png" alt="Argo logo" width={200} height={200} />
+      </div>
 
       {/* === Floating stars === */}
       {[...Array(6)].map((_, i) => (
