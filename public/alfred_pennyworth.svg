@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background -->
+  <rect width="200" height="200" fill="#ffffff"/>
+
+  <!-- Jacket body -->
+  <path d="M30 200 L30 140 Q30 120 55 115 L80 110 L100 130 L120 110 L145 115 Q170 120 170 140 L170 200 Z" fill="#1a1a1a" stroke="#000" stroke-width="3"/>
+
+  <!-- White shirt / collar area -->
+  <path d="M85 112 L100 130 L115 112 L108 107 L100 120 L92 107 Z" fill="#f0f0f0" stroke="#000" stroke-width="2"/>
+
+  <!-- Bow tie -->
+  <path d="M93 107 L100 113 L107 107 L100 101 Z" fill="#111" stroke="#000" stroke-width="1.5"/>
+  <rect x="98" y="103" width="4" height="8" rx="1" fill="#222"/>
+
+  <!-- Lapels -->
+  <path d="M100 130 L75 145 L55 115" fill="none" stroke="#333" stroke-width="2.5"/>
+  <path d="M100 130 L125 145 L145 115" fill="none" stroke="#333" stroke-width="2.5"/>
+
+  <!-- Neck -->
+  <rect x="90" y="95" width="20" height="18" rx="3" fill="#c4956a" stroke="#8a6040" stroke-width="2"/>
+
+  <!-- Head -->
+  <ellipse cx="100" cy="68" rx="38" ry="42" fill="#c4956a" stroke="#8a6040" stroke-width="3"/>
+
+  <!-- Bald shine highlights (subtle) -->
+  <ellipse cx="88" cy="48" rx="8" ry="5" fill="#d4a57a" opacity="0.5"/>
+
+  <!-- Heavy brow -->
+  <path d="M68 62 Q80 56 92 60" stroke="#4a3020" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M108 60 Q120 56 132 62" stroke="#4a3020" stroke-width="4" stroke-linecap="round" fill="none"/>
+
+  <!-- Eyes -->
+  <ellipse cx="82" cy="70" rx="7" ry="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <ellipse cx="118" cy="70" rx="7" ry="6" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <circle cx="83" cy="71" r="3.5" fill="#3a2510"/>
+  <circle cx="119" cy="71" r="3.5" fill="#3a2510"/>
+  <circle cx="84" cy="70" r="1" fill="#fff"/>
+  <circle cx="120" cy="70" r="1" fill="#fff"/>
+
+  <!-- Stern expression — slight frown -->
+  <path d="M88 90 Q100 86 112 90" stroke="#8a6040" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Thin mustache -->
+  <path d="M88 82 Q100 86 112 82" stroke="#4a3020" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M96 82 L100 84 L104 82" stroke="#4a3020" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Ear left -->
+  <path d="M62 68 Q55 68 56 78 Q57 85 64 82" fill="#c4956a" stroke="#8a6040" stroke-width="2"/>
+  <!-- Ear right -->
+  <path d="M138 68 Q145 68 144 78 Q143 85 136 82" fill="#c4956a" stroke="#8a6040" stroke-width="2"/>
+
+  <!-- Outline around entire head for bold cel look -->
+  <ellipse cx="100" cy="68" rx="38" ry="42" fill="none" stroke="#000" stroke-width="3"/>
+</svg>
