@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import EmojiToggle from './components/EmojiToggle';
 import MiniGame from './components/MiniGame';
 import RandomImageGenerator from './components/RandomImageGenerator';
-import Solitaire from './components/Solitaire';
 import SniperAnimation from './components/SniperAnimation';
 import FunnyIcon from './components/FunnyIcon';
 
@@ -438,8 +437,19 @@ export default function Home() {
       {/* === Click-the-Doge mini-game === */}
       <MiniGame />
 
-      {/* === Solitaire card game === */}
-      <Solitaire />
+      {/* === Petryk character with mask === */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 18,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/petryk_hl.png" alt="Petryk character with teal mask" width={300} height={300} />
+      </div>
 
       {/* === Floating stars === */}
       {[...Array(6)].map((_, i) => (
